@@ -6,7 +6,9 @@ const expectEqualSlices = std.testing.expectEqualSlices;
 const resistor_color = @import("./exercises/resistor_color.zig");
 const resistor_color_duo = @import("./exercises/resistor_color_duo.zig");
 
-pub fn main() !void {}
+pub fn main() !void {
+    
+}
 
 test "resistor color" {
     const ColorBand = resistor_color.ColorBand;
@@ -21,7 +23,7 @@ test "resistor color" {
 test "resistor color duo" {
     const colorCode = resistor_color_duo.colorCode;
     const ColorBand = resistor_color_duo.ColorBand;
-    
+
     var colors: [3]ColorBand = [_]ColorBand{ .red, .black, .orange };
     var color: isize = try colorCode(&colors);
     try expect(color == 20);
