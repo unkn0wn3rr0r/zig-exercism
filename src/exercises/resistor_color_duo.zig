@@ -1,5 +1,3 @@
-const std = @import("std");
-
 pub const ColorBand = enum(isize) {
     black,
     brown,
