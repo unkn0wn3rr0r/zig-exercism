@@ -19,28 +19,30 @@ test "resistor color" {
 }
 
 test "resistor color duo" {
+    const colorCode = resistor_color_duo.colorCode;
     const ColorBand = resistor_color_duo.ColorBand;
+    
     var colors: [3]ColorBand = [_]ColorBand{ .red, .black, .orange };
-    var color: isize = try ColorBand.colorCode(&colors);
+    var color: isize = try colorCode(&colors);
     try expect(color == 20);
 
     colors = [_]ColorBand{ .red, .black, .orange };
-    color = try ColorBand.colorCode(&colors);
+    color = try colorCode(&colors);
     try expect(color == 20);
 
     colors = [_]ColorBand{ .green, .yellow, .blue };
-    color = try ColorBand.colorCode(&colors);
+    color = try colorCode(&colors);
     try expect(color == 54);
 
     colors = [_]ColorBand{ .grey, .white, .orange };
-    color = try ColorBand.colorCode(&colors);
+    color = try colorCode(&colors);
     try expect(color == 89);
 
     colors = [_]ColorBand{ .white, .white, .orange };
-    color = try ColorBand.colorCode(&colors);
+    color = try colorCode(&colors);
     try expect(color == 99);
 
     colors = [_]ColorBand{ .white, .violet, .grey };
-    color = try ColorBand.colorCode(&colors);
+    color = try colorCode(&colors);
     try expect(color == 97);
 }

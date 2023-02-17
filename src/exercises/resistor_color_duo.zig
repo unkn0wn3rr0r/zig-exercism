@@ -1,3 +1,7 @@
+pub fn colorCode(colors: []const ColorBand) anyerror!isize {
+    return colors[0].getColorCode() * 10 + colors[1].getColorCode();
+}
+
 pub const ColorBand = enum(isize) {
     black,
     brown,
@@ -23,9 +27,5 @@ pub const ColorBand = enum(isize) {
             .grey => 8,
             .white => 9,
         };
-    }
-
-    pub fn colorCode(colors: []const ColorBand) anyerror!isize {
-        return colors[0].getColorCode() * 10 + colors[1].getColorCode();
     }
 };
