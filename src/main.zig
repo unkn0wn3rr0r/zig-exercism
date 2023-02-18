@@ -1,10 +1,12 @@
 const std = @import("std");
 const print = std.debug.print;
 const expect = std.testing.expect;
+const expectError = std.testing.expectError;
 const expectEqualSlices = std.testing.expectEqualSlices;
 const expectEqualStrings = std.testing.expectEqualStrings;
 
 const two_fer = @import("./exercises/two_fer.zig");
+const triangle = @import("./exercises/triangle.zig");
 const resistor_color = @import("./exercises/resistor_color.zig");
 const resistor_color_duo = @import("./exercises/resistor_color_duo.zig");
 
@@ -22,6 +24,36 @@ test "two fer" {
     expected = "One for Alice, one for me.";
     actual = try two_fer.twoFer(&response, "Alice");
     try expectEqualStrings(expected, actual);
+}
+
+test "triangle" {
+    const init = triangle.Triangle.init;
+
+    var actual = try init(2, 2, 2);
+    try expect(!actual.isScalene());
+    actual = try init(2, 2, 1);
+    try expect(!actual.isScalene());
+    actual = try init(3, 2, 1);
+    try expect(actual.isScalene());
+
+    actual = try init(3, 3, 3);
+    try expect(!actual.isIsosceles());
+    actual = try init(3, 2, 1);
+    try expect(!actual.isIsosceles());
+    actual = try init(2, 2, 1);
+    try expect(actual.isIsosceles());
+
+    var actualErr = init(55, 2, 1);
+    try expectError(triangle.TriangleError.InvalidInequality, actualErr);
+    actualErr = init(0, 0, 0);
+    try expectError(triangle.TriangleError.Degenerate, actualErr);
+    actualErr = init(-1, -300, 0);
+    try expectError(triangle.TriangleError.Degenerate, actualErr);
+
+    actual = try init(4, 55, 55);
+    try expect(!actual.isEquilateral());
+    actual = try init(55, 55, 55);
+    try expect(actual.isEquilateral());
 }
 
 test "resistor color" {
