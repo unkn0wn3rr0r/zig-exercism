@@ -2,12 +2,26 @@ const std = @import("std");
 const print = std.debug.print;
 const expect = std.testing.expect;
 const expectEqualSlices = std.testing.expectEqualSlices;
+const expectEqualStrings = std.testing.expectEqualStrings;
 
+const two_fer = @import("./exercises/two_fer.zig");
 const resistor_color = @import("./exercises/resistor_color.zig");
 const resistor_color_duo = @import("./exercises/resistor_color_duo.zig");
 
-pub fn main() !void {
-    
+pub fn main() !void {}
+
+test "two fer" {
+    const twoFer = two_fer.twoFer;
+
+    var response: [100]u8 = undefined;
+
+    var expected: []const u8 = "One for you, one for me.";
+    var actual: []u8 = try twoFer(&response, null);
+    try expectEqualStrings(expected, actual);
+
+    expected = "One for Alice, one for me.";
+    actual = try two_fer.twoFer(&response, "Alice");
+    try expectEqualStrings(expected, actual);
 }
 
 test "resistor color" {
