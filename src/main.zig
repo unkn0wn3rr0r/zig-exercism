@@ -1,6 +1,7 @@
 const std = @import("std");
 const print = std.debug.print;
 const expect = std.testing.expect;
+const expectEqual = std.testing.expectEqual;
 const expectError = std.testing.expectError;
 const expectEqualSlices = std.testing.expectEqualSlices;
 const expectEqualStrings = std.testing.expectEqualStrings;
@@ -10,6 +11,7 @@ const isogram = @import("./exercises/isogram.zig");
 const triangle = @import("./exercises/triangle.zig");
 const resistor_color = @import("./exercises/resistor_color.zig");
 const resistor_color_duo = @import("./exercises/resistor_color_duo.zig");
+const difference_of_squares = @import("./exercises/difference_of_squares.zig");
 
 pub fn main() !void {}
 
@@ -114,4 +116,46 @@ test "resistor color duo" {
     colors = [_]ColorBand{ .white, .violet, .grey };
     color = try colorCode(&colors);
     try expect(color == 97);
+}
+
+test "difference of squares" {
+    const squareOfSum = difference_of_squares.squareOfSum;
+    const sumOfSquares = difference_of_squares.sumOfSquares;
+    const differenceOfSquares = difference_of_squares.differenceOfSquares;
+
+    var expected: isize = 1;
+    var actual = squareOfSum(1);
+    try expectEqual(expected, actual);
+
+    expected = 225;
+    actual = squareOfSum(5);
+    try expectEqual(expected, actual);
+
+    expected = 25_502_500;
+    actual = squareOfSum(100);
+    try expectEqual(expected, actual);
+
+    expected = 1;
+    actual = sumOfSquares(1);
+    try expectEqual(expected, actual);
+
+    expected = 55;
+    actual = sumOfSquares(5);
+    try expectEqual(expected, actual);
+
+    expected = 338_350;
+    actual = sumOfSquares(100);
+    try expectEqual(expected, actual);
+
+    expected = 0;
+    actual = differenceOfSquares(1);
+    try expectEqual(expected, actual);
+
+    expected = 170;
+    actual = differenceOfSquares(5);
+    try expectEqual(expected, actual);
+
+    expected = 25_164_150;
+    actual = differenceOfSquares(100);
+    try expectEqual(expected, actual);
 }
