@@ -6,6 +6,7 @@ const expectEqualSlices = std.testing.expectEqualSlices;
 const expectEqualStrings = std.testing.expectEqualStrings;
 
 const two_fer = @import("./exercises/two_fer.zig");
+const isogram = @import("./exercises/isogram.zig");
 const triangle = @import("./exercises/triangle.zig");
 const resistor_color = @import("./exercises/resistor_color.zig");
 const resistor_color_duo = @import("./exercises/resistor_color_duo.zig");
@@ -26,6 +27,26 @@ test "two fer" {
     try expectEqualStrings(expected, actual);
 }
 
+test "isogram" {
+    const isIsogram = isogram.isIsogram;
+
+    try expect(isIsogram(""));
+    try expect(!isIsogram("zzyzx"));
+    try expect(isIsogram("isogram"));
+    try expect(!isIsogram("eleven"));
+    try expect(!isIsogram("angola"));
+    try expect(!isIsogram("Alphabet"));
+    try expect(!isIsogram("alphAbet"));
+    try expect(!isIsogram("accentor"));
+    try expect(!isIsogram(" lumberjackK "));
+    try expect(!isIsogram("up-to-date"));
+    try expect(isIsogram("six-year-old"));
+    try expect(isIsogram("subdermatoglyphic"));
+    try expect(isIsogram("thumbscrew-japingly"));
+    try expect(!isIsogram("thumbscrew-jappingly"));
+    try expect(isIsogram("Emily Jung Schwartzkopf--"));
+}
+
 test "triangle" {
     const init = triangle.Triangle.init;
 
@@ -43,12 +64,12 @@ test "triangle" {
     actual = try init(2, 2, 1);
     try expect(actual.isIsosceles());
 
-    var actualErr = init(55, 2, 1);
-    try expectError(triangle.TriangleError.InvalidInequality, actualErr);
-    actualErr = init(0, 0, 0);
-    try expectError(triangle.TriangleError.Degenerate, actualErr);
-    actualErr = init(-1, -300, 0);
-    try expectError(triangle.TriangleError.Degenerate, actualErr);
+    var actual_err = init(55, 2, 1);
+    try expectError(triangle.TriangleError.InvalidInequality, actual_err);
+    actual_err = init(0, 0, 0);
+    try expectError(triangle.TriangleError.Degenerate, actual_err);
+    actual_err = init(-1, -300, 0);
+    try expectError(triangle.TriangleError.Degenerate, actual_err);
 
     actual = try init(4, 55, 55);
     try expect(!actual.isEquilateral());
