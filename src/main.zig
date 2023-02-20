@@ -11,6 +11,7 @@ const isogram = @import("./exercises/isogram.zig");
 const triangle = @import("./exercises/triangle.zig");
 const resistor_color = @import("./exercises/resistor_color.zig");
 const resistor_color_duo = @import("./exercises/resistor_color_duo.zig");
+const collatz_conjecture = @import("./exercises/collatz_conjecture.zig");
 const difference_of_squares = @import("./exercises/difference_of_squares.zig");
 
 pub fn main() !void {}
@@ -116,6 +117,35 @@ test "resistor color duo" {
     colors = [_]ColorBand{ .white, .violet, .grey };
     color = try colorCode(&colors);
     try expect(color == 97);
+}
+
+test "collatz conjecture" {
+    const steps = collatz_conjecture.steps;
+    const ComputationError = collatz_conjecture.ComputationError;
+
+    var expected: usize = 0;
+    var actual = try steps(1);
+    try expectEqual(expected, actual);
+
+    expected = 4;
+    actual = try steps(16);
+    try expectEqual(expected, actual);
+
+    expected = 9;
+    actual = try steps(12);
+    try expectEqual(expected, actual);
+
+    expected = 152;
+    actual = try steps(1_000_000);
+    try expectEqual(expected, actual);
+
+    var expected_err: anyerror = ComputationError.IllegalArgument;
+    var result = steps(0);
+    try expectError(expected_err, result);
+
+    expected_err = ComputationError.IllegalArgument;
+    result = steps(-15);
+    try expectError(expected_err, result);
 }
 
 test "difference of squares" {
