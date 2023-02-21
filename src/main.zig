@@ -6,6 +6,7 @@ const expectError = std.testing.expectError;
 const expectEqualSlices = std.testing.expectEqualSlices;
 const expectEqualStrings = std.testing.expectEqualStrings;
 
+const darts = @import("./exercises/darts.zig");
 const two_fer = @import("./exercises/two_fer.zig");
 const isogram = @import("./exercises/isogram.zig");
 const triangle = @import("./exercises/triangle.zig");
@@ -15,6 +16,75 @@ const collatz_conjecture = @import("./exercises/collatz_conjecture.zig");
 const difference_of_squares = @import("./exercises/difference_of_squares.zig");
 
 pub fn main() !void {}
+
+test "darts" {
+    const init = darts.Coordinate.init;
+
+    var coordinate = init(-9.0, 9.0);
+    var expected: isize = 0;
+    var actual: isize = coordinate.score();
+    try expectEqual(expected, actual);
+
+    coordinate = init(0.0, 10.0);
+    expected = 1;
+    actual = coordinate.score();
+    try expectEqual(expected, actual);
+
+    coordinate = init(-5.0, 0.0);
+    expected = 5;
+    actual = coordinate.score();
+    try expectEqual(expected, actual);
+
+    coordinate = init(0.0, -1.0);
+    expected = 10;
+    actual = coordinate.score();
+    try expectEqual(expected, actual);
+
+    coordinate = init(0.0, 0.0);
+    expected = 10;
+    actual = coordinate.score();
+    try expectEqual(expected, actual);
+
+    coordinate = init(-0.1, -0.1);
+    expected = 10;
+    actual = coordinate.score();
+    try expectEqual(expected, actual);
+
+    coordinate = init(0.7, 0.7);
+    expected = 10;
+    actual = coordinate.score();
+    try expectEqual(expected, actual);
+
+    coordinate = init(0.8, -0.8);
+    expected = 5;
+    actual = coordinate.score();
+    try expectEqual(expected, actual);
+
+    coordinate = init(3.5, -3.5);
+    expected = 5;
+    actual = coordinate.score();
+    try expectEqual(expected, actual);
+
+    coordinate = init(-3.6, -3.6);
+    expected = 1;
+    actual = coordinate.score();
+    try expectEqual(expected, actual);
+
+    coordinate = init(-7.0, 7.0);
+    expected = 1;
+    actual = coordinate.score();
+    try expectEqual(expected, actual);
+
+    coordinate = init(7.1, -7.1);
+    expected = 0;
+    actual = coordinate.score();
+    try expectEqual(expected, actual);
+
+    coordinate = init(0.5, -4.0);
+    expected = 5;
+    actual = coordinate.score();
+    try expectEqual(expected, actual);
+}
 
 test "two fer" {
     const twoFer = two_fer.twoFer;
